@@ -1,29 +1,16 @@
 using System;
- 
-namespace DistanceTask
+
+namespace DistanceTask;
+
+public static class DistanceTask
 {
-    public static class DistanceTask
+    public static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y)
     {
-        // Расстояние от точки (x, y) до отрезка AB с координатами A(ax, ay), B(bx, by)
-        public static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y)
-        {
-            double a = Math.Sqrt(((x - ax) * (x - ax)) + ((y - ay) * (y - ay)));
-            double b = Math.Sqrt(((x - bx) * (x - bx)) + ((y - by) * (y - by)));
-            double c = Math.Sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by)));
- 
-            if (x >= ax && x <= bx && b != 0)
-            {
- 
-                                double e = (a + b + c) / 2.0;
-                                double f = Math.Sqrt((e * (e - a) * (e - b) * (e - c)));
- 
-                                return (2.0 * f) / c;
-                            }
-                    else if ((x <= ax || x >= bx) && c != 0)
-                    {
-                        return Math.Min(a, b);
-                    }
-                    else return 0;
-        }
+        if (ax == bx && ay == by)                                          
+            return Math.Sqrt(Math.Pow((x - ax), 2) + Math.Pow((y - ay), 2));      
+
+        double t = ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / (Math.Pow((bx - ax), 2) + Math.Pow((by - ay), 2));
+        t = t < 0 ? 0 : t > 1 ? 1 : t;
+        return (double)Math.Sqrt(Math.Pow((ax - x + (bx - ax) * t), 2) + Math.Pow((ay - y + (by - ay) * t), 2)); 
     }
 }
