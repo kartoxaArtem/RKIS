@@ -1,19 +1,11 @@
-namespace Pluralize
-{
-    public static class PluralizeTask
-    {
-        public static string PluralizeRubles(int count)
-        {
-            if (count % 100 >= 11 && count % 100 <= 14)
-                return "рублей";
+﻿namespace Pluralize;
 
-            int lastDigit = count % 10;
-            if (lastDigit == 1)
-                return "рубль";
-            else if (lastDigit >= 2 && lastDigit <= 4)
-                return "рубля";
-            else
-                return "рублей";
-        }
-    }
+public static class PluralizeTask
+{
+	public static string PluralizeRubles(int count)
+	{
+		if ((count % 100 > 10 && count % 100 < 20) || (count % 10 > 4 && count % 10 < 10) || count % 10 == 0)
+			return "рублей";
+		return count % 10 == 1 ? "рубль" : "рубля"; 
+	}
 }
